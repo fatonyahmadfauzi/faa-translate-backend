@@ -20,3 +20,12 @@ def translate_text(source_lang: str, target_lang: str, text: str):
         return {"translated_text": result}
     except Exception as e:
         return {"error": str(e)}
+
+# Tambahkan di sini:
+import os
+
+PORT = int(os.getenv("PORT", 8080))
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("app.main:app", host="0.0.0.0", port=PORT)
