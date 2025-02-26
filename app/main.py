@@ -16,17 +16,20 @@ def home():
     logging.info("Home endpoint called")
     return {"message": "Welcome to FAA Translate Backend!"}
 
+from pydantic import BaseModel
+
+class TranslateRequest(BaseModel):
+    source_lang: str
+    target_lang: str
+    text: str
+
 @app.post("/translate/")
-def translate_text(source_lang: str, target_lang: str, text: str):
-    """
-    Translate text from source_lang to target_lang.
-    """
+def translate_text(request: TranslateRequest):
     try:
-        result = translator.translate(source_lang, target_lang, text)
+        result = translator.translate(request.source_lang, request.target_lang, request.text)
         return {"translated_text": result}
     except Exception as e:
-        logging.error(f"Translation error: {str(e)}")
-        raise HTTPException(status_code=500, detail="Translation failed")
+        return {"error": str(e)}
 
 # Entry point for running locally
 if __name__ == "__main__":
