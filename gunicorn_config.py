@@ -1,4 +1,3 @@
-workers = 2
-threads = 4
 bind = "0.0.0.0:8080"
-timeout = 300
+workers = 2
+worker_class = "uvicorn.workers.UvicornWorker"

@@ -2,12 +2,12 @@ FROM python:3.9-slim
 
 WORKDIR /app
 
-# Salin dependencies
-COPY requirements.txt .
+# Install dependencies
+COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Salin seluruh kode aplikasi
+# Copy application code
 COPY . .
 
-# Jalankan aplikasi menggunakan Gunicorn
-CMD ["gunicorn", "-c", "gunicorn_config.py", "app.main:app"]
+# Command to run the application
+CMD ["gunicorn", "app.main:app", "-k", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:8080"]
