@@ -2,11 +2,12 @@ FROM python:3.9-slim
 
 WORKDIR /app
 
+# Salin dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY app ./app
+# Salin seluruh kode aplikasi
+COPY . .
 
-EXPOSE 8080
-
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
+# Jalankan aplikasi menggunakan Gunicorn
+CMD ["gunicorn", "-c", "gunicorn_config.py", "app.main:app"]
