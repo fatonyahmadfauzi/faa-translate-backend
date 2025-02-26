@@ -4,10 +4,11 @@ WORKDIR /app
 
 # Install dependencies
 COPY requirements.txt requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 
-# Copy application code
+# Install PyTorch
+RUN pip install torch torchvision torchaudio
+
 COPY . .
 
-# Command to run the application
-CMD ["gunicorn", "app.main:app", "-k", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:8080"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
