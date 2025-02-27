@@ -38,8 +38,3 @@ class TranslatorService:
         translated_text = tokenizer.decode(translated_tokens[0], skip_special_tokens=True)
 
         return translated_text
-
-# Contoh penggunaan
-translator = TranslatorService()
-translated_text = translator.translate("en", "ru", "Hello, how are you?")
-print(translated_text)
