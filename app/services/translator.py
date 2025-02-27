@@ -10,7 +10,7 @@ class TranslatorService:
         Load MarianMT model for English to Polish or English to Russian.
         """
         model_map = {
-            ("en", "pl"): "Faizyhugging/Merian-Finetuned-kde4-en-to-pl",
+            ("en", "pl"): "Helsinki-NLP/opus-mt-en-pl",
             ("en", "ru"): "Helsinki-NLP/opus-mt-en-ru",
         }
 
