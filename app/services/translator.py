@@ -7,9 +7,17 @@ class TranslatorService:
 
     def get_model(self, source_lang: str, target_lang: str):
         """
-        Get or load the MarianMT model for the language pair.
+        Load MarianMT model for English to Polish or English to Russian.
         """
-        model_name = f"Helsinki-NLP/opus-mt-{source_lang}-{target_lang}"
+        model_map = {
+            ("en", "pl"): "Faizyhugging/Merian-Finetuned-kde4-en-to-pl",
+            ("en", "ru"): "Helsinki-NLP/opus-mt-en-ru",
+        }
+
+        model_name = model_map.get((source_lang, target_lang))
+        if not model_name:
+            raise ValueError("Unsupported language pair. Only en-pl and en-ru are supported.")
+
         if model_name not in self.models:
             self.models[model_name] = {
                 "model": MarianMTModel.from_pretrained(model_name),
@@ -30,3 +38,8 @@ class TranslatorService:
         translated_text = tokenizer.decode(translated_tokens[0], skip_special_tokens=True)
 
         return translated_text
+
+# Contoh penggunaan
+translator = TranslatorService()
+translated_text = translator.translate("en", "ru", "Hello, how are you?")
+print(translated_text)

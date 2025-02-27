@@ -14,7 +14,7 @@ logging.basicConfig(level=logging.INFO)
 @app.get("/")
 def home():
     logging.info("Home endpoint called")
-    return {"message": "Welcome to FAA Translate Backend!"}
+    return {"message": "API is running"}
 
 from pydantic import BaseModel
 
